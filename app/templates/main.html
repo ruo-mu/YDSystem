@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/main/css/style.css') }}">
+</head>
+<body>
+    <!-- <h1>原点定位系统</h1> -->
+    <div id="upload-container">
+        <div class="upload-box">
+            <div class="upload-content">
+                <p id="text1-left">点击上传。</p>
+                <p id="text2-left">支持的格式：PNG, JPG, JPEG, WEBP, GIF.</p>
+                <input type="file" id="file-input-left" accept="image/*" style="display: none;" onchange="loadImage(event, 'preview-left', 'text1-left', 'text2-left', 'button-left')">
+                <button id="button-left" class="upload-button" onclick="document.getElementById('file-input-left').click()">选择文件</button>
+                <img id="preview-left" style="width: 100%; height: 100%; display: none;" onclick="document.getElementById('file-input-left').click()">
+            </div>
+        </div>
+        <div class="upload-box">
+            <div class="upload-content">
+                <button id="play-video">播放视频</button>
+                <video id="droidcam-video" style="display: none;" controls>
+                    <source id="droidcam-source" type="video/mjpeg">
+                    您的浏览器不支持 video 标签。
+                </video>
+            </div>
+        </div>
+        
+        
+    </div>
+    <p id="result"></p>
+    <script src="{{ url_for('static', path='/main/js/scripts.js') }}"></script>
+</body>
+</html>

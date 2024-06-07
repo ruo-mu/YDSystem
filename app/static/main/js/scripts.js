@@ -21,28 +21,26 @@ function loadImage(event, previewId, textId1, textId2, buttonId) {
     reader.readAsDataURL(file);
 }
 
-function loadDroidCamVideo(droidCamURL) {
-    var video = document.getElementById('droidcam-video');
-    var source = document.getElementById('droidcam-source');
-    
-    source.src = droidCamURL;  // 设置视频源URL
-    video.load();  // 加载新的视频源
-    video.play()  // 尝试播放视频
-    .then(() => {
-        console.log('视频播放成功');
+function uploadImage() {
+    let inputs = document.querySelectorAll('input[type="file"]');
+    let data = new FormData();
+    inputs.forEach(input => {
+      for (let i = 0; i < input.files.length; i++) {
+        data.append('files', input.files[i]);
+      }
+    });
+    // 发送请求到服务器
+    fetch('http://127.0.0.1:8080/picture/upload_picture', {
+        method: 'POST',
+        body: data
     })
-    .catch((error) => {
-        console.error('播放视频时出错: ', error);
+    .then(response => response.json())
+    .then(data => {
+        // 处理响应
+        console.log(data);
+    })
+    .catch(error => {
+        // 处理错误
+        console.error(error);
     });
 }
-
-// 当用户点击按钮后，加载 DroidCam 视频流并显示视频
-document.getElementById('play-video').addEventListener('click', function() {
-    console.log('按钮被点击');
-    loadDroidCamVideo('http://10.90.15.88:4747/override');
-    var video = document.getElementById('droidcam-video');
-    video.style.display = 'block';
-});
-
-
-

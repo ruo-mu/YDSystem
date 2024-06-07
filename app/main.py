@@ -29,6 +29,11 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "name": "Index"})
 
 
+@app.get("/main")
+async def index(request: Request):
+    return templates.TemplateResponse("main.html", {"request": request, "name": "main"})
+
+
 if __name__ == "__main__":
     import uvicorn
 

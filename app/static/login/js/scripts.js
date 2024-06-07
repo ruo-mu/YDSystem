@@ -43,6 +43,8 @@ if (response.status === 200) {
     console.log(token);
     // 保存令牌到 localStorage 或其他地方
     localStorage.setItem('token', token);
+    // 重定向到首页
+    window.location.href = 'http://127.0.0.1:8080/main';
 } else {
     // 显示错误信息
     document.getElementById('login-error').textContent = '无效的用户名或密码';

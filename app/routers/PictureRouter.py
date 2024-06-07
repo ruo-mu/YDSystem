@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, UploadFile, File, Depends
 
 from app.services.pictureService import PictureService
@@ -10,14 +12,11 @@ router = APIRouter()
 picture_service = PictureService()
 
 
-@router.post('/upload')
+@router.post('/upload_picture')
 async def upload_picture(
         # user: User = Depends(Authorize().get_current_user),
-        file: UploadFile = File(...),
+        files: List[UploadFile] = File(...),
 ):
-    return await picture_service.upload_picture(file)
+    await picture_service.upload_picture(files)
 
 
-@router.get('/match_key_points')
-async def match_key_points():
-    pass

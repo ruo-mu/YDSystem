@@ -1,5 +1,5 @@
 import os
-
+from typing import List
 from fastapi import UploadFile
 
 
@@ -7,13 +7,15 @@ class PictureService:
     def __init__(self):
         pass
 
-    async def upload_picture(self, file: UploadFile):
-        pass
+    async def upload_picture(self, files: List[UploadFile]):
+        # pass
         try:
-            os.makedirs('uploaded_files', exist_ok=True)
-            with open(f'uploaded_files/{file.filename}', 'wb+') as f:
-                f.write(await file.read())
-            return {"filename": file.filename}
+            upload_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '/uploaded_files'
+            os.makedirs(upload_folder, exist_ok=True)
+            for file in files:
+                with open(upload_folder + f'/{file.filename}', 'wb+') as f:
+                    f.write(await file.read())
+            # return {"filename": file.filename}
         except Exception as e:
             return {"error": str(e)}
 

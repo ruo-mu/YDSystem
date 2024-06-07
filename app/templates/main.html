@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='/main/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/main/css/style.css') }}">
     <title>main</title>
 </head>
 <body>
@@ -20,16 +20,15 @@
         </div>
         <div class="upload-box">
             <div class="upload-content">
-                <button id="play-video">播放视频</button>
-                <video id="droidcam-video" style="display: none;" controls>
-                    <source id="droidcam-source" type="video/mjpeg">
-                    您的浏览器不支持 video 标签。
-                </video>
+                <p id="text1-right">点击上传。</p>
+                <p id="text2-right">支持的格式：PNG, JPG, JPEG, WEBP, GIF.</p>
+                <input type="file" id="file-input-right" accept="image/*" style="display: none;" onchange="loadImage(event, 'preview-right', 'text1-right', 'text2-right', 'button-right')">
+                <button id="button-right" class="upload-button" onclick="document.getElementById('file-input-right').click()">选择文件</button>
+                <img id="preview-right" style="width: 100%; height: 100%; display: none;" onclick="document.getElementById('file-input-right').click()">
             </div>
         </div>
-        
-        
     </div>
+    <button onclick="uploadImage()">提交</button>
     <p id="result"></p>
     <script src="{{ url_for('static', path='/main/js/scripts.js') }}"></script>
 </body>

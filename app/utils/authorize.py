@@ -39,3 +39,6 @@ class Authorize:
         except JWTError:
             raise exp
         return username
+
+
+authorize = Authorize()

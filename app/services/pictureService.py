@@ -1,6 +1,9 @@
 import os
 from typing import List
-from fastapi import UploadFile
+from fastapi import UploadFile, Depends
+
+from app.models.user import User
+from app.utils.authorize import authorize
 
 
 class PictureService:
@@ -8,7 +11,6 @@ class PictureService:
         pass
 
     async def upload_picture(self, files: List[UploadFile]):
-        # pass
         try:
             upload_folder = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '/uploaded_files'
             os.makedirs(upload_folder, exist_ok=True)

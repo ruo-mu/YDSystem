@@ -1,12 +1,11 @@
 from fastapi import HTTPException, status
-from pydantic import ValidationError
 from fastapi.responses import JSONResponse
+from pydantic import ValidationError
 from app.config.dbconfig import SessionLocal
-from app.utils.crud import CRUD
-from app.schema.userschema import UserSchema
-from app.models.token import Token
 from app.models.user import User
+from app.schema.userschema import UserSchema
 from app.utils.authorize import Authorize
+from app.utils.crud import CRUD
 from app.utils.verify import Verify
 
 
@@ -34,13 +33,9 @@ class UserService:
                 headers={"WWW-Authenticate": "Bearer"},
             )
         token = self.authorize.create_access_token(user.username, 60 * 24 * 1)
-
         return JSONResponse(
             status_code=status.HTTP_200_OK,
-            content={
-                "access_token": token.model_dump(),
-                "token_type": "bearer"
-            }
+            content=token.model_dump()
         )
 
     def register(self, user: User) -> bool:
@@ -59,6 +54,3 @@ class UserService:
         except Exception as e:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="注册失败!" + str(e))
         return True
-
-    # def protected(self, token: str):
-    #     return self.authorize.get_current_auth(token)

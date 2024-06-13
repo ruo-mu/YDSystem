@@ -20,3 +20,9 @@ async def upload_picture(
     await picture_service.upload_picture(files)
 
 
+@router.get('/match_key_points')
+async def match_key_points():
+    return picture_service.match_key_points()
+
+
+
